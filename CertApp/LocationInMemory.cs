@@ -4,36 +4,64 @@ namespace CertApp
     public class LocationInMemory : LocationBase
 
     {
-        public LocationInMemory(string lane, int row) : base(lane, row)
+        public LocationInMemory(string lane, string row) : base(lane, row)
         {
-            this.Quantity = 0;
+           
         }
 
-        private List<float> quantities= new List<float>();
+        private List<float> quantities = new List<float>();
         public override event QuantityAddedDelegate QuantityAdded;
 
-        
+
 
         public override void AddQuantity(float quantity)
         {
-            if (quantity >= 0 && quantity <= 100)
+            if (this.Quantity+quantity <= 1000 && quantity >0)
             {
                 this.quantities.Add(quantity);
                 this.Quantity += quantity;
                 if (QuantityAdded != null)
+
                 {
                     QuantityAdded(this, new EventArgs());
                 }
+            }else if (this.Quantity + quantity > 1000)
+            {
+                Console.WriteLine("Location overloaded - give smaller quantity");
             }
-            
+
+        }
+
+        public override void AddQuantity(int quantity)
+        {
+            var intAsFloat = (float)quantity;
+            this.AddQuantity(intAsFloat);
+        }
+
+        public override void AddQuantity(char quantity)
+        {
+            switch (quantity)
+            {
+                case 'w':
+                    AddQuantity(25);
+                    break;
+                case 'k':
+                    AddQuantity(10);
+                    break;
+                default:
+                    throw new Exception("Wrong letter");
+                    
+            }
         }
 
         public override void AddQuantity(string quantity)
         {
-            if(float.TryParse(quantity, out float result))
+            if (float.TryParse(quantity, out float result))
             {
                 this.AddQuantity(result);
-            }else if(char.TryParse(quantity, out char Letter)){
+            }
+            else if (char.TryParse(quantity, out char Letter))
+            {
                 this.AddQuantity(Letter);
             }
             else
@@ -44,9 +72,14 @@ namespace CertApp
 
         public override Statistics GetStatistics()
         {
-            throw new NotImplementedException();
+            var statistics = new Statistics();
+            foreach (var quantity in this.quantities)
+            {
+                statistics.AddQuantity(quantity);
+            }
+            return statistics;
         }
 
-        
+
     }
 }
