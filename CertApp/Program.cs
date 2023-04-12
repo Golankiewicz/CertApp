@@ -141,8 +141,8 @@ void CheckQuantitiesInFile()
     if ((Array.IndexOf(laneOptions, lane) != -1) && (Array.IndexOf(rowOptions, row) != -1))
     {
         var locationInFile = new LocationInFile(lane, row);
-        locationInFile.GetStatistics();
         var stat = locationInFile.GetStatistics();
+        Console.WriteLine(stat.Sum);
         Console.WriteLine($"Stock level of location {lane}{row}: {stat.Sum} kg is - {stat.Level}");
 
 

@@ -76,44 +76,45 @@ namespace CertApp
         }
 
 
-        public override Statistics GetStatistics()
-        {
-            var quantitiesFromFile = this.ReadQuantitiesFromFile();
-            var statistics = this.GetStatistics(quantitiesFromFile);
-            return statistics;
-        }
-
-        private List<float> ReadQuantitiesFromFile()
-        {
-            var quantity = new List<float>();
-            if (File.Exists(fileNameWithLocationName))
+        public override Statistics GetStatistics() 
             {
-                using (var reader = File.OpenText(fileNameWithLocationName))
+                var quantitiesFromFile = this.ReadQuantitiesFromFile();
+                var statistics = this.GetStatistics(quantitiesFromFile);
+                return statistics;
+            }
+
+            private List<float> ReadQuantitiesFromFile()
+            {
+                var quantity = new List<float>();
+                if (File.Exists(fileNameWithLocationName))
                 {
-                    var line = reader.ReadLine();
-
-                    while (line != null)
+                    using (var reader = File.OpenText(fileNameWithLocationName))
                     {
-                        var number = float.Parse(line);
+                        var line = reader.ReadLine();
 
-                        quantity.Add(number);
-                        line = reader.ReadLine();
+                        while (line != null)
+                        {
+                            var number = float.Parse(line);
+
+                            quantity.Add(number);
+                            line = reader.ReadLine();
+                        }
                     }
                 }
+
+                return quantity;
             }
-           
-            return quantity;
-        }
-        private Statistics GetStatistics(List<float> quantities)
-        {
-            var statistics = new Statistics();
-            foreach (var quant in quantities)
+           private Statistics GetStatistics(List<float> quantities)
             {
-                statistics.AddQuantity(quant);
+                var statistics = new Statistics();
+                foreach (var quant in quantities)
+                {
+                    statistics.AddQuantity(quant);
+                }
+
+                return statistics;
             }
-          
-            return statistics;
-        }
+        
 
 
     }
