@@ -1,10 +1,7 @@
 ﻿using CertApp;
 
 Console.WriteLine("This is a model of a storage system");
-
-
 bool exit = false;
-
 while (!exit)
 {
     Console.WriteLine("=================================================================");
@@ -48,7 +45,6 @@ void AddQuantitiesInMemory()
     Console.WriteLine("Enter storage row. Possible 1,2, till 10");
     string row = Console.ReadLine();
 
-
     string[] laneOptions = { "A", "B", "C" };//dostępne alejki
     string[] rowOptions = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };//dostępne rzędy
     if ((Array.IndexOf(laneOptions, lane) != -1) && (Array.IndexOf(rowOptions, row) != -1))
@@ -59,8 +55,6 @@ void AddQuantitiesInMemory()
         locationInMemory.GetStatistics();
         var stat = locationInMemory.GetStatistics();
         Console.WriteLine($"Stock level of location {lane}{row}: {stat.Sum} kg is - {stat.Level}");
-
-
     }
     else
     {
@@ -68,10 +62,7 @@ void AddQuantitiesInMemory()
     }
 
 }
-
-
 //======================================================================================
-
 void AddQuantitiesInFile()
 {
     Console.WriteLine("Enter storage lane. Possible A, B, or C ");
@@ -90,14 +81,11 @@ void AddQuantitiesInFile()
         locationInFile.GetStatistics();
         var stat = locationInFile.GetStatistics();
         Console.WriteLine($"Stock level of location {lane}{row}: {stat.Sum} kg is - {stat.Level}");
-
-
     }
     else
     {
         Console.WriteLine("You have to enter correct location's lane and row");
     }
-
 }
 
 static void EnterQuantity(ILocation location)
@@ -119,20 +107,15 @@ static void EnterQuantity(ILocation location)
         {
             Console.WriteLine(e.Message);
         }
-
     }
-
 }
-
 //=====================================================================================
-
-
 void CheckQuantitiesInFile()
 {
     Console.WriteLine("Enter storage lane. Possible A, B, or C ");
     string laneLo = Console.ReadLine();
     string lane = laneLo.ToUpper();//zamiana oznaczenia alejek na dużą literę /jeżeli potrzeba/
-    
+
     Console.WriteLine("Enter storage row. Possible 1,2, till 10");
     string row = Console.ReadLine();
 
@@ -144,14 +127,11 @@ void CheckQuantitiesInFile()
         var stat = locationInFile.GetStatistics();
         Console.WriteLine(stat.Sum);
         Console.WriteLine($"Stock level of location {lane}{row}: {stat.Sum} kg is - {stat.Level}");
-
-
     }
     else
     {
         Console.WriteLine("You have to enter correct location's lane and row");
     }
-
 }
 
 

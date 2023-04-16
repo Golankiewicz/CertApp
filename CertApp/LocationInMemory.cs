@@ -2,42 +2,36 @@
 namespace CertApp
 {
     public class LocationInMemory : LocationBase
-
     {
         public LocationInMemory(string lane, string row) : base(lane, row)
         {
-           
+
         }
 
         private List<float> quantities = new List<float>();
         public override event QuantityAddedDelegate QuantityAdded;
-
-
-
         public override void AddQuantity(float quantity)
         {
-            if (this.Quantity+quantity <= 1000 && quantity >0)
+            if (quantity <= 1000 && quantity > 0)
             {
                 this.quantities.Add(quantity);
-                this.Quantity += quantity;
+
                 if (QuantityAdded != null)
 
                 {
                     QuantityAdded(this, new EventArgs());
                 }
-            }else if (this.Quantity + quantity > 1000)
+            }
+            else if (quantity > 1000)
             {
                 Console.WriteLine("Location overloaded - give smaller quantity");
             }
-
         }
-
         public override void AddQuantity(int quantity)
         {
             var intAsFloat = (float)quantity;
             this.AddQuantity(intAsFloat);
         }
-
         public override void AddQuantity(char quantity)
         {
             switch (quantity)
@@ -50,10 +44,8 @@ namespace CertApp
                     break;
                 default:
                     throw new Exception("Wrong letter");
-                    
             }
         }
-
         public override void AddQuantity(string quantity)
         {
             if (float.TryParse(quantity, out float result))
@@ -69,7 +61,6 @@ namespace CertApp
                 throw new Exception("String is not a float");
             }
         }
-
         public override Statistics GetStatistics()
         {
             var statistics = new Statistics();
@@ -79,7 +70,5 @@ namespace CertApp
             }
             return statistics;
         }
-
-
     }
 }

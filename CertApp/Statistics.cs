@@ -38,11 +38,8 @@ namespace CertApp
         public void AddQuantity(float quantity)
         {
             this.Count++;
-
             this.Sum += quantity;
-
             this.Max = Math.Max(this.Max, quantity);
         }
-
     }
 }
