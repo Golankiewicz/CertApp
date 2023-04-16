@@ -21,40 +21,6 @@ namespace CertApp
                 QuantityAdded(this, new EventArgs());
             }
         }
-        public override void AddQuantity(int quantity)//metoda dodania ilości w int
-        {
-            var intAsFloat = (float)quantity;
-            this.AddQuantity(intAsFloat);
-        }
-        public override void AddQuantity(char quantity)//metoda dodania ilości w char
-        {
-            switch (quantity)
-            {
-                case 'w':
-                    AddQuantity(25);
-                    break;
-                case 'k':
-                    AddQuantity(10);
-                    break;
-                default:
-                    throw new Exception("Wrong letter");
-            }
-        }
-        public override void AddQuantity(string quantity)//metoda dodania ilości w stringu
-        {
-            if (float.TryParse(quantity, out float result))
-            {
-                this.AddQuantity(result);
-            }
-            else if (char.TryParse(quantity, out char Letter))
-            {
-                this.AddQuantity(Letter);
-            }
-            else
-            {
-                throw new Exception("String is not a float");
-            }
-        }
         public override Statistics GetStatistics()
         {
             var quantitiesFromFile = this.ReadQuantitiesFromFile();

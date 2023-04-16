@@ -27,40 +27,6 @@ namespace CertApp
                 Console.WriteLine("Location overloaded - give smaller quantity");
             }
         }
-        public override void AddQuantity(int quantity)
-        {
-            var intAsFloat = (float)quantity;
-            this.AddQuantity(intAsFloat);
-        }
-        public override void AddQuantity(char quantity)
-        {
-            switch (quantity)
-            {
-                case 'w':
-                    AddQuantity(25);
-                    break;
-                case 'k':
-                    AddQuantity(10);
-                    break;
-                default:
-                    throw new Exception("Wrong letter");
-            }
-        }
-        public override void AddQuantity(string quantity)
-        {
-            if (float.TryParse(quantity, out float result))
-            {
-                this.AddQuantity(result);
-            }
-            else if (char.TryParse(quantity, out char Letter))
-            {
-                this.AddQuantity(Letter);
-            }
-            else
-            {
-                throw new Exception("String is not a float");
-            }
-        }
         public override Statistics GetStatistics()
         {
             var statistics = new Statistics();
